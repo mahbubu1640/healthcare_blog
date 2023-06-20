@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #8BC6EC;
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    
+            height: 100vh;
+          }
+          .form_container{
+            background-color:white;
+          }
+          .usertype_heading{
+            display:flex;
+            justify-content:center;
+          }
+          .content_data{
+            margin-top:5rem;
+            margin-left:15rem;
+           
+            font-size:20px;
+          }
+          span{
+            font-weight:600;
+            font-size:20px;
+
+          }
+          .data{
+            display: flex;
+            flex-direction: row;
+          }
+    </style>
+</head>
+<body>
+
+  <div>
+    <a class="btn btn-primary m-5" href="{% url 'home' %}" role="button">Homepage</a>
+    
+    {% if request.user.is_doctor %}
+    <a class="btn btn-primary m-5" href="{% url 'blogdetials' %}" role="button">My blogs</a>
+    <a class="btn btn-primary m-5" href="{% url 'blog_post' %}" role="button">Add Blog</a>
+
+    {% else %}
+    <a class="btn btn-primary m-5" href="{% url 'blogdetials' %}" role="button">blogs</a>
+    {% endif %}
+  </div>
+
+   
+    {% if request.user.is_patient %}
+    <div class='usertype_heading'>
+        <h1> welcome to Patient Dashboards</h1>
+    </div>
+
+    <div class='data'>
+        <div class='content_data'>
+            Username:<span>  {{request.user}}</span><br><br>
+            first_name:<span>  {{request.user.first_name}}</span><br><br>
+            last_name:<span>  {{request.user.last_name}}</span><br><br>
+            email:<span>  {{request.user.email}}</span><br><br>
+            Address:<span>  {{request.user.Address}}</span><br><br>
+        </div>
+        <div class='content_data'>
+            <img class="img-profile rounded-circle" src="{{request.user.img.url}}" style='width:130px;height:100px;'> 
+        </div>
+    </div>
+
+    {% else %}
+
+    <div class='usertype_heading'>
+        <h1> welcome to Doctor Dashboards</h1>
+    </div>
+
+
+    <div class='data'>
+        <div class='content_data'>
+            Username:<span>  {{request.user}}</span><br><br>
+            first_name:<span>  {{request.user.first_name}}</span><br><br>
+            last_name:<span>  {{request.user.last_name}}</span><br><br>
+            email:<span>  {{request.user.email}}</span><br><br>
+            Address:<span>  {{request.user.Address}}</span><br><br>
+        </div>
+        <div class='content_data'>
+            <img class="img-profile rounded-circle" src="{{request.user.img.url}}" style='width:130px;height:100px;'> 
+            
+        </div>
+        
+        
+    </div>
+
+    {% endif %}
+    
+
+   
+    
+</body>
+</html>

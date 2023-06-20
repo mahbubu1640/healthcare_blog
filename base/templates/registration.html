@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+    
+    .doctor-registration-form{
+        display:none
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #FBAB7E;
+        background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+
+        height: 100vh;
+      }
+    .patient-registration-form{
+        background-color: white;
+    }
+    .doctor-registration-form{
+        background-color: white;
+
+    }
+
+
+</style>
+{% endblock css %}
+
+
+{% block content %}
+
+
+    <div>
+        {% if messages %}
+        {% for msg in messages %}
+        <div {% if msg.tags %} class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert" {% endif %}>
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+
+
+<div class="container d-flex justify-content-center">
+   
+    <div class="col-lg-6 col-md-6 col-sm-12 p-3">
+        <div class="heading-registration m-3">
+            <h1 style='text-align:center;'>Get Registered As</h1>
+            <hr class="dropdown-divider">
+            <div class="user-type d-flex justify-content-around">
+                <button type="button" class="btn btn-outline-primary pt1" data='patient' id='patient_btn'>Patient</button>
+                <button type="button" class="btn btn-outline-success" data='doctor' id='doctor_btn'>Doctor</button>
+            </div>
+        </div>
+        
+        <!--patient form-->
+        <form action="{% url 'registration' %}" class='patient-registration-form p-5' method='POST' enctype='multipart/form-data' >
+            {% csrf_token %}
+            <input type="hidden" name='data' value='patient' >
+
+
+            <div class="row g-2">
+                 <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="patient_name" placeholder="Username" name='first_name'>
+                        <label for="patient_name">First Name</label>
+                    </div>
+                </div>  
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="patient_name" placeholder="Username" name='last_name'>
+                        <label for="patient_name">Last Name</label>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+            <div class="row">
+                <div class=" col form-floating mb-3">
+                    <input type="text" class="form-control" id="patient_name" placeholder="Username" name='user_name'>
+                    <label for="patient_name">Username Name</label>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="patient_email" name='email' placeholder="">
+                        <label for="patient_email">Email address</label>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row g-2">
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="patient_img" name='profile_picture' aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                </div>
+                
+            </div> 
+
+
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="inputCity" placeholder='street' name='street'>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="inputState" class="form-label" style='visibility:hidden;'>State</label>
+                    <input type="text" class="form-control" id="inputCity" placeholder='city and state' name='state'>
+                    
+                  </div>
+                  <div class="col-md-2">
+                    <label for="inputZip" class="form-label" style='visibility:hidden;'>Zip</label>
+                    <input type="text" class="form-control" id="inputZip" name='pincode'>
+                  </div>
+                
+            </div>
+
+            
+            <div class="row g-2 mt-2">
+                <div class="col-md">
+                  
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="patient_password" name='password' placeholder="">
+                        <label for="patient_password">password</label>
+                        
+                    </div>
+                </div>
+                <div class="col-md mb-3">
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="patient_repassword" name='confirm_password' placeholder="">
+                        <label for="patient_repassword">confirm password</label>
+                        <small class='m-1'><input type="checkbox" onclick="myFunction()">Show Password</small>
+                        
+                    </div>
+                    
+                </div>
+            </div>  
+
+            <div class="form-floating mb-3 " style='text-align:center;'>
+                <button type="submit" class="btn btn-primary ">Registered as Patient</button>  
+            </div>
+        </form>
+
+        <!--doctor form-->
+
+        <form action="{% url 'registration' %}" class='doctor-registration-form p-5' method='POST' enctype='multipart/form-data'>
+            {% csrf_token %}
+            <input type="hidden" name='data' value='doctor'>
+             <div class="row g-2">
+                <div class="col-md">
+                   <div class="form-floating mb-3">
+                       <input type="text" class="form-control" id="patient_name" placeholder="Username" name='d_first_name'>
+                       <label for="patient_name">First Name</label>
+                   </div>
+               </div>  
+               <div class="col-md">
+                   <div class="form-floating mb-3">
+                       <input type="text" class="form-control" id="patient_name" placeholder="Username" name='d_last_name'>
+                       <label for="patient_name">Last Name</label>
+                   </div>
+               </div>
+           </div> 
+
+           
+           
+            <div class="row">
+               <div class=" col form-floating mb-3">
+                   <input type="text" class="form-control" id="patient_name" placeholder="Username" name='d_username'>
+                   <label for="patient_name">Username Name</label>
+               </div>
+               <div class="col-md">
+                   <div class="form-floating mb-3">
+                       <input type="email" class="form-control" id="patient_email" name='d_email' placeholder="">
+                       <label for="patient_email">Email address</label>
+                   </div>
+               </div>
+
+           </div> 
+
+
+           <div class="row g-2">
+               <div class="input-group mb-3">
+                   <input type="file" class="form-control" id="profile_picture2" name='d_profile_picture' aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+               </div>
+               
+           </div> 
+
+
+
+           <div class="row mb-3">
+               <div class="col-md-6">
+                   <label for="inputCity" class="form-label">Address</label>
+                   <input type="text" class="form-control" id="inputCity" placeholder='street' name='d_street'>
+                 </div>
+                 <div class="col-md-4">
+                   <label for="inputState" class="form-label" style='visibility:hidden;'>State</label>
+                   <input type="text" class="form-control" id="inputCity" placeholder='city and state' name='d_state'>
+                   
+                 </div>
+                 <div class="col-md-2">
+                   <label for="inputZip" class="form-label" style='visibility:hidden;'>Zip</label>
+                   <input type="text" class="form-control" id="inputZip" name='d_pincode'>
+                 </div>
+               
+           </div> 
+
+           
+           <div class="row g-2 mt-2">
+               <div class="col-md">
+                 
+                   <div class="form-floating mb-3">
+                       <input type="password" class="form-control" id="doctor_password" name='d_password' placeholder="">
+                       <label for="patient_password">password</label>
+                       
+                   </div>
+               </div>
+               <div class="col-md mb-3">
+                   <div class="form-floating mb-3">
+                       <input type="password" class="form-control" id="doctor_repassword" name='d_confirm_password' placeholder="">
+                       <label for="patient_repassword">confirm password</label>
+                       <small class='m-1'><input type="checkbox" onclick="myFunction()">Show Password</small>
+                       
+                   </div>
+                   
+               </div>
+           </div>   
+            <div class="form-floating mb-3 " style='text-align:center;'>
+                <button type="submit" class="btn btn-success ">Registered as Doctor</button>   
+            </div>
+        </form>
+    </div> 
+</div><br><br>
+
+    {% endblock content %}
+
+
+{% block js %} 
+<script>
+
+    const patient_Btn=document.getElementById('patient_btn');
+    const doctor_Btn=document.getElementById('doctor_btn');
+
+    patient_Btn.addEventListener('click',showPatient)
+    doctor_Btn.addEventListener('click',showDoctor)
+    
+    function showPatient(e){
+        let patient_form=document.querySelector('.patient-registration-form')
+        let doctor_form=document.querySelector('.doctor-registration-form')
+        patient_form.style.display='block'
+        doctor_form.style.display='none'
+        //console.log(e.target.getAttribute('data'))
+    }
+    function showDoctor(e){
+        let doctor_form=document.querySelector('.doctor-registration-form')
+        let patient_form=document.querySelector('.patient-registration-form')
+        doctor_form.style.display='block'
+
+        patient_form.style.display='none'
+        
+        //console.log(e.target.getAttribute('data'))
+    }
+
+    function myFunction() {
+        var x = document.getElementById("patient_password");
+        
+        var y = document.getElementById("patient_repassword");
+       
+        if (x.type === "password" && y.type==="password"){
+          x.type = "text";
+          y.type = "text";
+        } else {
+          x.type = "password";
+          y.type = "password";
+        }
+      }
+      function myFunction2() {
+  
+        var x1 = document.getElementById("doctor_password");
+   
+        var y1 = document.getElementById("doctor_repassword");
+        if (x1.type==='password' && y1.type==='password') {
+       
+          x1.type = "text";
+          y1.type = "text";
+        } else {
+          
+          x1.type = "password";
+          y1.type = "password";
+        }
+      }
+
+</script>
+
+
+{% endblock js %}
+
+

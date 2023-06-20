@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+     body {
+        margin: 0;
+        padding: 0;
+        {% comment %} background-color: #17a2b8; {% endcomment %}
+        background-color: #8BC6EC;
+        background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+
+        height: 100vh;
+      }
+      .form_container{
+        background-color:white;
+      }
+      .snackbar-container.bottom-right {
+        background-color: #006767!important; 
+       
+        border-radius: 10px;
+    }
+
+    .snackbar-container.bottom-right p {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+
+</style>
+{% endblock css %}
+
+
+{% block content %}
+
+<div>
+    {% if messages %}
+    {% for msg in messages %}
+    <div {% if msg.tags %} class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert" {% endif %}>
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="container d-flex justify-content-center ">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-12 ">
+        <div class="form_container border border-primary mt-5">
+            <div class="d-flex justify-content-center">
+                <h3>Login</h3>
+            </div>
+            
+            <form action="{% url 'login' %}" method="POST" class="form_section p-5">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control"  id="patient_login_email" placeholder="name@example.com" name='username'>
+                    <label for="patient_login_email">Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input type="password" class="form-control"  name='password' id="patient_login_email" placeholder="Password">
+                    <label for="patient_login_email">Password</label>
+                    </div>
+                   
+                    <div class="form-floating mb-3 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success ">Login </button> 
+                    <a class="btn btn-outline-info" href="{% url 'registration' %}" role="button">Registered</a>
+                    </div>  
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+

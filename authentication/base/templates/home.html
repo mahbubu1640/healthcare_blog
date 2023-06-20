@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .doctor-image{
+        background-color:tomato;
+    }
+    .patient-image{
+        background-color:tomato;
+    }
+    .login-bar{
+        background-color:green;
+        padding:10px;
+        width:20rem;
+        border-radius:10px;
+      
+    }
+     .snackbar-container.bottom-right {
+        background-color: #006767!important; 
+       
+        border-radius: 10px;
+    }
+
+    .snackbar-container.bottom-right p {
+        width: 100% !important;
+        text-align: center !important;
+        font-size: 16px !important;
+    } 
+   
+</style>
+
+{% endblock css %}
+
+{% block content %}
+
+<div>
+    {% if messages %}
+    {% for msg in messages %}
+    <div {% if msg.tags %} class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert" {% endif %}>
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<!--section 1-->
+<div class="container-fluid banner-img">
+    <img src="{% static 'img/banner.jpg' %}" alt="" class='banner-image'>
+    <div class="col-lg-6 col-md-6 col-sm-12 heading">
+        <span>Efficiently managing healthcare </span><br>
+        <span>services of Doctors </span><br>
+        <span> and patients.</span>
+        <div class="registration">
+            {% if request.user.is_authenticated %}
+            <a class="register-btn" href="{% url 'dashboard'%}" role="button"><span>Dashboard</span></a>
+            {% else %}
+            
+            <a class="register-btn" href="{% url 'registration' %}" role="button"><span>Get Registered</span></a>
+            {% endif %}
+        </div>
+
+    </div>
+    
+</div>
+
+<!-- section2-->
+<div class="container ">
+    <div class="">
+        <div class="sub-heading d-flex justify-content-center">
+            <span>Our Operations</span>
+        </div>
+        <div class="content d-flex justify-content-center">
+             Streamlines hospital operations, including doctor and patient management, billing, and scheduling.
+            
+        </div> 
+
+    </div>
+</div>
+
+{% endblock content %}
+{% block js %} 
+<script>
+
+</script>
+
+
+{% endblock js %}
